@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='./css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='./js/picklist.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+<h1 style="text-align:center">{{ title }}</h1>
+
+<div class="slide">
+    <div id="vis_fc1" class="vis">
+        <form NAME="YearPickForecast" ID="YearPick" ACTION="SelectYear" onLoad="init();">
+            <table name"forecastTable" class="Table ForecastTable">
+                <tr>
+<!--
+                    <td>
+                        <label for="elements">Choose an Element:</label>
+                        <select NAME="SelectList" ID="ElementsList" style="width: 260px">
+                            <option VALUE="00"><None></option>
+                            <option VALUE="01">Domestic supply quantity</option>
+                            <option VALUE="02">Export Quantity</option> 
+                            <option VALUE="03">Import Quantity</option>
+                            <option VALUE="04">Processing</option>
+                            <option VALUE="05">Production</option>
+                            <option VALUE="06">Seed</option>
+                        </select>
+                    </td>
+-->
+                    <td class="header_user_frame header_user_frame_B">
+                       <center> <img src="{{ url_for('static', filename='./img/farm.jpg') }}" alt="FALP Farm" }} > </center>
+                    </td>
+                    <td>
+                        <label for="years">Choose Forecast Year(s):</label>
+                        <select NAME="SelectList" ID="YearsList" style="width: 200px">
+                            <option VALUE="1">1 Year</option>
+                            <option VALUE="2">2 Years</option> 
+                            <option VALUE="3">3 Years</option>
+                            <option VALUE="4">4 Years</option>
+                            <option VALUE="5">5 Years</option>
+                        </select>
+                    </td>
+                        <!-- <input TYPE="reset" VALUE="Reset" ONCLICK="javascript: window.location.href = 'picklist.html'"> -->
+                    <td>
+                    </td>
+                    <td ALIGN="right">
+                        <input TYPE="button" VALUE="Forcast" class="btn btn-primary" onclick="return element_picklist.forecastIt()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="vis_fc2" class="vis"></div>
+    <div id="vis_fc3" class="vis"></div>
+</div>
+    <hr style="width: 100%;margin-left: auto;margin-right: auto;height: 5px;background-color:blue;opcaity: 0.5;">
+    <div class="slide">
+        <div id="vis_fcb1" class="vis"></div>
+        <div id="vis_fcb2" class="vis"></div>
+        <div id="vis_fcb3" class="vis"></div>
+    </div>
+
+    <center>
+    <div id="forms">
+            <div class="btn-group btn-group-lg">
+                <form action="/logout" method="POST">
+                    <button name="btnlogout" type="submit" class="btn btn-primary" style="margin:20px;color:white;background-color:red">Log Out</button> 
+                </form>
+
+                <button name="btnhome" type="button" class="btn btn-primary" onClick="location.href='/index'">HOME</button>
+                <button name="btndashboard" type="button" class="btn btn-primary" onClick="location.href='/dashboard'">Dashboard</button>
+            </div>
+    </div>
+    </center>
+
+{% endblock %}

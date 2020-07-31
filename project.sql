@@ -1,0 +1,35 @@
+DROP TABLE IF EXISTS users CASCADE;
+CREATE TABLE users (
+    uid serial NOT NULL PRIMARY KEY,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL,
+    created DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+DROP TABLE IF EXISTS nfb;
+CREATE TABLE nfb (
+    id serial NOT NULL PRIMARY KEY,
+	Domain_Code VARCHAR(20) NOT NULL,
+	Domain VARCHAR(255) NOT NULL,
+	Area_Code VARCHAR(20) NOT NULL,
+	Area VARCHAR(255) NOT NULL,
+	Element_Code VARCHAR(20) NOT NULL,
+	Element VARCHAR(255) NOT NULL,
+	Item_Code VARCHAR(20) NOT NULL,
+	Item VARCHAR(255) NOT NULL,
+	Year_Code VARCHAR(20) NOT NULL,
+	Year VARCHAR(20) NOT NULL,
+	Unit VARCHAR(20) NOT NULL,
+	Value NUMERIC(10, 2) NOT NULL,
+	Flag VARCHAR(10) NOT NULL,
+	Flag_Description VARCHAR(255) NOT NULL,
+	Note TEXT,
+    created DATE NOT NULL DEFAULT CURRENT_DATE
+);
+
+GRANT CONNECT ON DATABASE final_project to fadi;
+GRANT ALL PRIVILEGES ON DATABASE final_project to fadi;
+GRANT ALL PRIVILEGES ON users to fadi;
+GRANT ALL PRIVILEGES ON nfb to fadi;
+GRANT ALL PRIVILEGES ON sequence users_uid_seq to fadi;
+GRANT ALL PRIVILEGES ON sequence nfb_pid_seq to fadi;

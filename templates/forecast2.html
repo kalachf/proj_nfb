@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='./css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='./js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/queryResults.js') }}"></script>
+
+{% endblock %}
+
+{% block content %}
+    <header>
+
+    </header>
+    <div class="slide">
+        <div class="container">
+            <nav class="dashboard_nav">
+                <h2>In the Bucket</h2>
+
+            </nav>
+            <div class="dropdown">
+              <button class="dropbtn">Item Type</button>
+              <div class="dropdown-content" id="item-dropdown">
+                <a href="#" onclick="updateChoice('Anise, badian, fennel, coriander')" >Anise, badian, fennel, coriander</a>
+                <a href="#" onclick="updateChoice('Bananas')" >Bananas</a>
+                <a href="#" onclick="updateChoice('Barley')" >Barley</a>
+                <a href="#" onclick="updateChoice('Beans, dry')" >Beans, dry</a>
+                <a href="#" onclick="updateChoice('Beans, green')" >Beans, green</a>
+                <a href="#" onclick="updateChoice('Buckwheat')" >Buckwheat</a>
+                <a href="#" onclick="updateChoice('Cabbages')" >Cabbages</a>
+                <a href="#" onclick="updateChoice('Cashew Nuts')" >Cashew Nuts</a>
+                <a href="#" onclick="updateChoice('Cassava')" >Cassava</a>
+                <a href="#" onclick="updateChoice('Castor Oil Seed')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cereals')">Cereals</a>
+                <a href="#" onclick="updateChoice('Chick peas')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Chillies and peppers, dry')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Chillies and peppers, green')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cloves')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cocoa beans')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Coconuts')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Coffee, Green')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cotton lint')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cottonseed')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Cow peas, dried')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Fibre crops nes')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Fruit, fresh nes')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Garlic')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Ginger')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Grapes')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Groundnuts, with shell')">Castor Oil Seed</a>
+                <a href="#" onclick="updateChoice('Lemons and limes')">Lemons and limes</a>
+                <a href="#" onclick="updateChoice('Maize')">Maize</a>
+                <a href="#" onclick="updateChoice('Maize, green')">Maize, green</a>
+                <a href="#" onclick="updateChoice('Mangoes, mangosteens, guavas')">Mangoes, mangosteens, guavas</a>
+                <a href="#" onclick="updateChoice('Millet')">Millet</a>
+                <a href="#" onclick="updateChoice('Nutmeg, mace and cardamoms')">Nutmeg, mace and cardamoms</a>
+                <a href="#" onclick="updateChoice('Nuts nes')">Nuts nes</a>
+                <a href="#" onclick="updateChoice('Oil palm fruit')">Oil palm fruit</a>
+                <a href="#" onclick="updateChoice('Oil, palm')">Oil, palm</a>
+                <a href="#" onclick="updateChoice('Oilseeds nes')">Oilseeds nes</a>
+                <a href="#" onclick="updateChoice('Onions, dry')">Onions, dry</a>
+                <a href="#" onclick="updateChoice('Oranges')">Oranges</a>
+                <a href="#" onclick="updateChoice('Palm kernels')">Palm kernels </a>
+                <a href="#" onclick="updateChoice('Pears')">Pears</a>
+                <a href="#" onclick="updateChoice('Peas, dry')">Peas, dry</a>
+                <a href="#" onclick="updateChoice('Peas, green')">Peas, green</a>
+                <a href="#" onclick="updateChoice('Pepper')">Pepper</a>
+                <a href="#" onclick="updateChoice('Pigeon peas')">Pigeon peas</a>
+                <a href="#" onclick="updateChoice('Pineapples')">Pineapples</a>
+                <a href="#" onclick="updateChoice('Plantains')">Plantains</a>
+                <a href="#" onclick="updateChoice('Plums and sloes')">Plums and sloes</a>
+                <a href="#" onclick="updateChoice('Potatoes')">Potatoes</a>
+                <a href="#" onclick="updateChoice('Pulses nes')">Pulses nes</a>
+                <a href="#" onclick="updateChoice('Pyrethrum, dried')">Pyrethrum, dried</a>
+                <a href="#" onclick="updateChoice('Rice, paddy')">Rice, paddy</a>
+                <a href="#" onclick="updateChoice('Roots and tubers nes')">Roots and tubers nes</a>
+                <a href="#" onclick="updateChoice('Safflower seed')">Safflower seed</a>
+                <a href="#" onclick="updateChoice('Seed cotton')">Seed cotton</a>
+                <a href="#" onclick="updateChoice('Sesame seed')">Sesame seed</a>
+                <a href="#" onclick="updateChoice('Sisal')">Sisal</a>
+                <a href="#" onclick="updateChoice('Sorghum')">Sorghum</a>
+                <a href="#" onclick="updateChoice('Soybeans')">Soybeans</a>
+                <a href="#" onclick="updateChoice('Sugar cane')">Sugar cane</a>
+                <a href="#" onclick="updateChoice('Sunflower seed')">Sunflower seed</a>
+                <a href="#" onclick="updateChoice('Sweet potatoes')">Sweet potatoes</a>
+                <a href="#" onclick="updateChoice('Tea')">Tea</a>
+                <a href="#" onclick="updateChoice('Tobacco, unmanufactured')">Tobacco, unmanufactured</a>
+                <a href="#" onclick="updateChoice('Tomatoes')">Tomatoes</a>
+                <a href="#" onclick="updateChoice('Vegetables, fresh nes')">Vegetables, fresh nes</a>
+                <a href="#" onclick="updateChoice('Watermelons')">Watermelons</a>
+                <a href="#" onclick="updateChoice('Wheat')">Wheat</a>
+                <a href="#" onclick="updateChoice('Yams')">Yams</a>
+                <a href="#" onclick="updateChoice('Yautia (cocoyam)')">Yautia (cocoyam)</a>
+
+              </div>
+            </div>
+            <div class="dropdown">
+              <button class="dropbtn">Year</button>
+              <div class="dropdown-content" id="year-dropdown">
+                <a href="#">Item</a>
+                <a href="#">Year</a>
+              </div>
+            </div>
+            <div class="dashboard_box">
+                <div class="bucket_list">
+                    {% for food in foods %}
+                        <div class="bucket_entry">
+                            <div class="bucket_entry_imgbox">
+                                <img src="{{ url_for('static', filename=food.img_src) }}" alt="{{ food.name }}">
+                            </div>
+                            <div class="bucket_entry_descript">
+                                <h3>{{ food.name }}
+                                    <span>{% if food.name_alt %} ({{food.name_alt}}){% endif %}</span>
+                                </h3>
+                                <h4>{{ food.parent }}</h4>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

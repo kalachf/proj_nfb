@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='./css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='./js/textbox.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/donut.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/scatter.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/bars.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/picklist.js') }}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align:center">{{ title }}</h1>
+
+    <div class="slide">
+        <div id="vis_tb1" class="vis"></div>
+        <div id="vis_tb2" class="vis"></div>
+        <div id="vis_tb3" class="vis"></div>
+        <div id="vis_tb4" class="vis"></div>
+        <div id="vis_tb5" class="vis"></div>
+        <div id="vis_tb6" class="vis"></div>
+    </div>
+    <hr style="width: 100%;margin-left: auto;margin-right: auto;height: 5px;background-color:blue;opcaity: 0.5;">
+    <div class="slide">
+        <div id="vis1" class="vis"></div>
+        <div id="vis2" class="vis"></div>
+        <div id="vis3" class="vis"></div>
+        <div id="vis4" class="vis"></div>
+    </div>
+
+    <center>
+    <div id="forms">
+            <div class="btn-group btn-group-lg">
+                <form action="/logout" method="POST">
+                    <button name="btnlogout" type="submit" class="btn btn-primary" style="margin:20px;color:white;background-color:red">Log Out</button> 
+                </form>
+
+                <button name="btnhome" type="button" class="btn btn-primary" onClick="location.href='/index'">HOME</button>
+                <button name="btnforecast" type="button" class="btn btn-primary" onClick="location.href='/forecast'">Forecast</button>
+            </div>
+    </div>
+    </center>
+
+{% endblock %}
