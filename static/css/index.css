@@ -1,3 +1,51 @@
+/* AXES */
+/* ticks */
+/* AXES */
+/* ticks */
+.axis line{
+stroke: #706f6f;
+stroke-width: 0.5;
+shape-rendering: crispEdges;
+}
+
+/* axis contour */
+.axis path {
+stroke: #706f6f;
+stroke-width: 0.7;
+shape-rendering: crispEdges;
+}
+
+/* axis text */
+.axis text {
+fill: #2b2929;
+font-family: Georgia;
+font-size: 100%;
+}
+
+/* LINE CHART */
+path.line-0 {
+    fill: none;
+    stroke: #ed3700;
+}
+
+path.line-1 {
+    fill: none;
+    stroke: #2b2929;
+    stroke-dasharray: 2;
+}
+
+path.line-2 {
+    fill: none;
+    stroke: #9c9c9c;
+    stroke-dasharray: 6;
+}
+
+.serie_label {
+  fill: #2b2929;
+  font-family: Georgia;
+  font-size: 80%;
+}
+/* ------------------------------------- */
 .slide {
     display: flex;
     flex-flow: row wrap;
@@ -48,7 +96,7 @@ g:hover .text{
      position: absolute;
      text-align: center;
      padding: .5rem;
-     background: #FFFFFF;
+     background: yellow;
      color: #313639;
      border: 1px solid #313639;
      border-radius: 8px;
@@ -77,7 +125,7 @@ h1 {
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
+  width: 30 %;
 }
 td, th {
   border: 1px solid #dddddd;
@@ -87,6 +135,10 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+tr:hover {
+  background-color: #00FFFF;
+}
+
 table, th, td {
   border: 1px solid black;
 }
@@ -153,4 +205,11 @@ ul li::before {
 .pic_in_cell img {
     height: 25%;
     width: 25%;
+}
+
+#legend{
+    width:40%;
+    margin-left:30%;
+    margin-top:1%;
+    content-align:center;
 }

@@ -1,10 +1,11 @@
 from dotenv import load_dotenv
 from flask import Flask, flash, render_template, request, url_for, redirect, jsonify, session
-from models.models import Db, User, NFB
+from models.models import Db, User, NFB, Crops
 from forms.forms import SignupForm, LoginForm, DashboardForm, ForecastForm
 from os import environ
 from passlib.hash import sha256_crypt
 from sqlalchemy import func, and_
+import joblib
 
 load_dotenv('.env')
 
@@ -14,6 +15,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fadi:fadi123@localhost:543
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = environ.get('SECRET_KEY')
 Db.init_app(app)
+
+# Load ML model
+model1 = joblib.load('./notebooks/model_regr.pkl')
+
+# POST /test
+@app.route('/test', methods=['POST', 'GET'])
+def test():
+    # test
+    return render_template('test.html', title='test line chart')
+
+# POST /team
+@app.route('/team', methods=['POST', 'GET'])
+def team():
+    # test
+    return render_template('team.html', title='Team Members...')
 
 # GET /
 @app.route('/')
@@ -59,7 +75,9 @@ def login():
 def load_data():
     # nfbs = NFB.query.filter(NFB.value > 0)
     #   if filter is clear (not set)
-    nfbs = NFB.query.filter(and_(NFB.value > 0, NFB.element.in_(['Export Quantity','Import Quantity','Domestic supply quantity','Production','Processing','Seed'])))
+    # nfbs = NFB.query.filter(and_(NFB.value > 0, NFB.element.in_(['Export Quantity','Import Quantity','Domestic supply quantity','Production','Processing','Seed'])))
+    nfbs = NFB.query.all()
+        # nfbs = NFB.query.with_entities(NFB.year, func.sum(NFB.value)).group_by(NFB.year).filter(and_(NFB.value > 0, NFB.element.in_(['Export Quantity','Import Quantity','Domestic supply quantity','Production','Processing','Seed'])))
     #   else nfbs = above AND filter
 
     nfbs_json = {'nfbs': []}
@@ -67,7 +85,18 @@ def load_data():
         rec_info = aRec.__dict__
         del rec_info['_sa_instance_state']
         nfbs_json['nfbs'].append(rec_info)
-    return jsonify(nfbs_json)
+
+#    crops = Crops.query.all()
+#    crops_json = {'crops': []}
+#    for aRec in crops:
+#        rec_info = aRec.__dict__
+#        del rec_info['_sa_instance_state']
+#        crops_json['crops'].append(rec_info)
+
+    return jsonify(nfbs_json) # , jsonify(crops_json)
+
+
+
 
 @app.route('/total_export', methods=['GET', 'POST'])
 def total_export():
@@ -93,7 +122,7 @@ def logout():
 # /dashboard
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return render_template('dashboard.html', title='Farmer Analyzer of Local Produce (FALP) Dashboard')
+    return render_template('dashboard.html', title='Tanzania - Farmer Analyzer of Local Produce (FALP) Dashboard')
 
 
 # GET & POST /forecast
@@ -106,7 +135,7 @@ def forecast():
     if request.method == 'POST':
         return render_template('forecast.html', title='Forecast', form=form)
     else:
-        return render_template('forecast.html', title='Farmer Analyzer of Local Produce (FALP) Forecast', form=form)
+        return render_template('forecast.html', title='Tanzania - Farmer Analyzer of Local Produce (FALP) Forecast', form=form)
 
 
 # GET & POST /signup

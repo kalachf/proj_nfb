@@ -17,9 +17,13 @@ class PickList {
     /*
     Constructor
      */
-    constructor() {
+    constructor(_list, _id,  _parent) {
         // Assign parameters as object fields      
         console.log("Create Picklist");
+        this.pl = _list;
+        this.pl_id = _id;
+        // this.target = _target;
+        this.parent = _parent;
         // Now init
         this.init();
     }
@@ -27,15 +31,32 @@ class PickList {
 
   // Initialise - invoked on load
     init() {
-      let selectList = document.getElementById("YearsList");
-      let selectOptions = selectList.options;
-      let selectIndex = selectList.selectedIndex;
-    
-      if (!(selectIndex > -1)) {
-        selectOptions[0].selected = true;  // Set first selected on load
-        selectOptions[0].defaultSelected = true;  // In case of reset/reload
+      const vis = this;
+      vis.selectList = document.createElement("select");
+      vis.selectList.id = vis.pl_id;
+      vis.parent_id = document.getElementById(vis.parent);
+      // console.log("Parent", vis.parent);
+      this.parent_id.appendChild(vis.selectList);
+      // let selectList = document.getElementById(vis.pl_id);
+      let selectOptions = vis.selectList.options;
+      let selectIndex = vis.selectList.selectedIndex;
+
+      for(let i = 0 ; i < vis.pl.length ; i++) {
+      //Create and append the options
+          var option = document.createElement("option");
+          option.value = i;
+          option.text = vis.pl[i];
+          vis.selectList.appendChild(option);
+          // console.log("pl id: ", i);
       }
-      selectList.focus();  // Set focus on the selectlist
+      vis.selectList.focus();  // Set focus on the selectlist
+
+//      vis.selectlist.createAttribute("onchange", forecastIt(vis));
+      vis.selectList.onchange = e =>  {
+        // console.log("Selected:", vis.selectList.value);
+        vis.forecastIt();
+      };
+
     }
 
   // Adds a selected item into the picklist
@@ -110,8 +131,9 @@ class PickList {
 
   // Selection - invoked on Forcast
   forecastIt(btn) {
-    console.log("Enter selIt")
-    let pickList = document.getElementById("YearsList");
+    const vis = this;
+    // console.log("Enter select It")
+    let pickList = document.getElementById(vis.pl_id);
     let pickOptions = pickList.options;
     let pickOLength = pickOptions.length;
     if (pickOLength < 1) {
@@ -119,7 +141,11 @@ class PickList {
       return false;
     }
       
-    console.log(pickOptions[pickList.selectedIndex].value);
+    console.log("Picked: ", pickOptions[pickList.selectedIndex].text);
+    console.log("Picked i: ", pickOptions[pickList.selectedIndex].value);
+
+    // Forcast passing no of years (add one cause index starts w/0)
+    linechart.addForcast(parseInt(pickOptions[pickList.selectedIndex].value) + 1);
 
     return true;
   }

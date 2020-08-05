@@ -9,23 +9,50 @@ let tot_production = 0;
 let tot_Processing = 0;
 let tot_seed = 0;
 
+let stacked_data = [];
+
 let tb_export, tb_import, tb_dsq, tb_production, tb_processing, tb_seed = null;
 let bar_elements, bar_items, donut, scatter = null;
+let linechart = null;
+let stacked_bar, item_stacked_bar = null;
+
 let elements = [];
 let element_codes = [];
 let items = [];
 let values = [];
+let year_values = [];
 let years = [];
 
 let element_picklist = null;
+let item_keys =[];
+let item_dict = [];
 
 d3.json('/load_data').then(d => {
 
     // Redefine
     data = d.nfbs;
+    // console.log("type:::::", data);
+
+    const nest = d3.nest()
+                    .key(d => d.year)
+                    .rollup(v => {
+                        const map = v.map(d => d.value)
+                        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+                        const sum = map.reduce(reducer);
+                        // console.log("Map", map);
+                        return sum;
+                    })
+                    .entries(data);
+    // re-formate string year to digits
+    nest.forEach(d => {
+        d.key = +d.key
+    })
+    console.log("type:::::", nest);
 
     for(var i = 0; i < data.length; i++) {
         var obj = data[i];
+
+
         switch (obj.element) {
             case 'Export Quantity':
                 tot_export = tot_export + obj.value;
@@ -53,26 +80,49 @@ d3.json('/load_data').then(d => {
         items.push(obj.item_code);
         values.push(obj.value);
         years.push(obj.year);
-        // console.log(obj.value);
-    }
-    
-    //
-    // KPI and Visual Experience
-    //
-    // Instantiate
-    
-    // console.log("Items: ", items);
-    tb_export = new TextBox('Export Quantity', tot_export, 'vis_tb1');
-    tb_import = new TextBox('Import Quantity', tot_import, 'vis_tb2');
-    tb_dsq = new TextBox('Domestic supply quantity', tot_production, 'vis_tb3');
-    tb_production = new TextBox('Production', tot_production, 'vis_tb4');
-    tb_processing = new TextBox('Processing', tot_Processing, 'vis_tb5');
-    tb_seed = new TextBox('Seed', tot_seed, 'vis_tb6');
 
-    bar_elements = new Bars(element_codes, 'Element Codes', 6, 'vis1');
-    bar_items = new Bars(items, 'Items', 10, 'vis2');
-    donut = new Donut(elements, 'Elements',  'vis3');
-    // console.log("elements: ", elements);
-    scatter = new Scatter(values, years, 'Values', 'Years', 'vis4');
+        //sum total numbers for each item type
+        var current_item_sums = d3.nest().key(function(d){
+            return d.item; })       // *** By Item
+        .rollup(function(leaves){
+            return d3.sum(leaves, function(d){
+                return d.value;
+            });
+        }).entries(data)
+        .map(function(d){
+            return { key:d.key, value:d.value};
+        });
+
+        var current_domain_sums = d3.nest().key(function(d){
+            return d.element; })        // *** By Element
+        .rollup(function(leaves){
+            return d3.sum(leaves, function(d){
+                return d.value;
+            });
+        }).entries(data)
+        .map(function(d){
+            return { key:d.key, value:d.value};
+        });
+
+        //var item_data = Array.from(d3.group(data, d => d.item));
+        //var item_sums = d3.rollup(function(v) {v.value})
+    }
+    console.log(current_item_sums);
+    console.log(current_domain_sums);
+
+    stacked_data['Seed']=tot_seed;
+    stacked_data['Processing']=tot_Processing;
+    stacked_data['Production']=tot_production;
+    stacked_data['Domestic supply quantity']=tot_dsq;
+    stacked_data['Import Quantity']=tot_import;
+    stacked_data['Export Quantity']=tot_export;
+    console.log("creating dictionary")
+    console.log(stacked_data);
+
+    stacked_bar = new StackBar(current_domain_sums,'vis_tb1');
+    item_stacked_bar =new StackBarItem(current_item_sums,'vis_tb2');
+//    linechart = new LineChart(Object.keys(year_values), Object.values(year_values), 'Year', 'Value', 'vis1');
+//    linechart = new LineChart(year_values, 'Year', 'Value', 'vis1');
+    linechart = new LineChart(nest, 'Year', 'New Food Balance', 'vis1');
 
 }).catch(err => console.log(err));

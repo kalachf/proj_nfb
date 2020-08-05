@@ -12,30 +12,44 @@
     <script src="{{ url_for('static', filename='./js/bars.js') }}"></script>
     <script src="{{ url_for('static', filename='./js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='./js/picklist.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/linechart.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/stackedBar.js') }}"></script>
+    <script src="{{ url_for('static', filename='./js/stackedBarItem.js') }}"></script>
 
+    <script type="text/javascript">
+            pl_year = new PickList(["One Year", "Two Years", "Three Years", "Four Years", "Five Years"], 'picklist_year', "td_yearlist");
+    </script>
 {% endblock %}
 
 {% block content %}
 
     <h1 style="text-align:center">{{ title }}</h1>
+    <div id="legend">
+        <h2 id="domain" style="text-align:center">Domain(s): {{ element }}</h2>
+        <h2 id="select_item" style="text-align:center">Item: {{ item }}</h2>
+    </div>
 
     <div class="slide">
         <div id="vis_tb1" class="vis"></div>
         <div id="vis_tb2" class="vis"></div>
-        <div id="vis_tb3" class="vis"></div>
-        <div id="vis_tb4" class="vis"></div>
-        <div id="vis_tb5" class="vis"></div>
-        <div id="vis_tb6" class="vis"></div>
-    </div>
-    <hr style="width: 100%;margin-left: auto;margin-right: auto;height: 5px;background-color:blue;opcaity: 0.5;">
-    <div class="slide">
-        <div id="vis1" class="vis"></div>
-        <div id="vis2" class="vis"></div>
-        <div id="vis3" class="vis"></div>
-        <div id="vis4" class="vis"></div>
     </div>
 
+    <hr style="width: 100%;margin-left: auto;margin-right: auto;height: 5px;background-color:blue;opcaity: 0.5;">
+
     <center>
+        <div id="vis1" class="vis" />
+    </center>
+
+    <center>
+            <table name"forecastTable" class="Table ForecastTable">
+                    <tr>
+                        <td id="td_yearlist">
+                            <label for="years" color="blue">New Food Balance Forecast:</label>
+                            <!-- Dynamically add picklist (parent class id "td_yearlist") -->
+                        </td>
+                    </tr>
+            </table>
+
     <div id="forms">
             <div class="btn-group btn-group-lg">
                 <form action="/logout" method="POST">
@@ -43,7 +57,8 @@
                 </form>
 
                 <button name="btnhome" type="button" class="btn btn-primary" onClick="location.href='/index'">HOME</button>
-                <button name="btnforecast" type="button" class="btn btn-primary" onClick="location.href='/forecast'">Forecast</button>
+                <button name="btnrefresh" type="button" class="btn btn-primary" onClick="location.href='/dashboard'">Refresh</button>
+                <button name="btnforecast" type="button" class="btn btn-primary" >...</button>
             </div>
     </div>
     </center>

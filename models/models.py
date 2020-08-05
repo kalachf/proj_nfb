@@ -3,6 +3,8 @@ import datetime
 
 Db = SQLAlchemy()
 
+# Copy csv file to table in Postgre DB:
+# 
 
 class User(Db.Model):
     __tablename__ = 'users'
@@ -10,6 +12,7 @@ class User(Db.Model):
     username = Db.Column(Db.String(64), unique=True, nullable=False)
     password = Db.Column(Db.String(128), nullable=False)
     created = Db.Column(Db.Date, default=Db.func.current_timestamp())
+
 
 class NFB(Db.Model):
     __tablename__ = 'nfb'
@@ -29,4 +32,24 @@ class NFB(Db.Model):
     flag = Db.Column(Db.String(10), nullable=False)
     flag_description = Db.Column(Db.String(255), nullable=False)
     note  = Db.Column(Db.String(1000))
+    created = Db.Column(Db.Date, default=Db.func.current_timestamp())
+
+# domain_code,domain,area_code,area,element_code,element,item_code,item,year_code,year,unit,value,flag,flag_description,note
+class Crops(Db.Model):
+    __tablename__ = 'crops'
+    crops_id = Db.Column(Db.Integer, primary_key=True, autoincrement=True)
+    domain_code = Db.Column(Db.String(20), nullable=False)
+    domain = Db.Column(Db.String(255), nullable=False)
+    area_code = Db.Column(Db.String(20), nullable=False)
+    area = Db.Column(Db.String(255), nullable=False)
+    element_code = Db.Column(Db.String(20), nullable=False)
+    element = Db.Column(Db.String(255), nullable=False)
+    item_code = Db.Column(Db.String(20), nullable=False)
+    item = Db.Column(Db.String(255), nullable=False)
+    year_code = Db.Column(Db.String(20), nullable=False)
+    year = Db.Column(Db.String(20), nullable=False)
+    unit = Db.Column(Db.String(20), nullable=False)
+    value = Db.Column(Db.Float, nullable=False)
+    flag = Db.Column(Db.String(10), nullable=False)
+    flag_description = Db.Column(Db.String(255), nullable=False)
     created = Db.Column(Db.Date, default=Db.func.current_timestamp())

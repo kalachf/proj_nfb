@@ -30,8 +30,8 @@ class TextBox {
         this.value = _value;
         this.target = _target;
         
-        console.log("label: ", this.label);
-        console.log("value: ", this.value);
+        // console.log("label: ", this.label);
+        // console.log("value: ", this.value);
         
         // Now init
         this.init();

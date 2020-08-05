@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+    <link href="{{ url_for('static', filename='./css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="text-align:center">Team Tanzania</h1>
+    <center>
+            <table name"forecastTable" class="Table ForecastTable">
+                    <tr><td ><strong style="font-size: 35px;">Name</strong></td><td><strong style="font-size: 35px;">Role</strong></td></tr>
+                    <tr><td >JJ</td><td>Team Lead</td></tr>
+                    <tr><td >David</td><td>Student</td></tr>
+                    <tr><td >Fadi</td><td>student</td></tr>
+            </table>
+{% endblock %}

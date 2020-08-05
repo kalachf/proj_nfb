@@ -15,7 +15,7 @@
 
     {% else %}
 
-        <h1 style="text-align:center">Farmer Analyzer of Local Produce (FALP)</h1>
+        <h1 style="text-align:center">Tanzania - Farmer Analyzer of Local Produce (FALP)</h1>
 
     {% endif %}
 
@@ -33,13 +33,14 @@
                     <button name="btnlogout" type="submit" class="btn btn-primary" style="margin:20px;color:white;background-color:red">Log Out</button> 
                 </form>
                 <button name="btndashboard" type="button" class="btn btn-primary" onClick="location.href='/dashboard'">Dashboard</button>
-                <button name="btnforecast" type="button" class="btn btn-primary" onClick="location.href='/forecast'">Forecast</button>
+                <button name="btnforecast" type="button" class="btn btn-primary" onClick="location.href='/'">...</button>
             </div>
 
         {% else %}
             <div class="btn-group btn-group-lg">
                 <button name="btnlogin" type="button" class="btn btn-primary" onClick="location.href='/login'">Log In</button>
                 <button name="btnsignup" type="button" class="btn btn-primary" onClick="location.href='/signup'">Sign Up</button>
+                <button name="btnteam" type="button" class="btn btn-primary" onClick="location.href='/team'">Team...</button>
             </div>
         {% endif %}
     </div>
